@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/kalam/IdeaProjects/TPCIndiaAutomationProject/src/test/java/com/bridgelabz/tpcindia/test/TPCIndiaTest.java">
+        <parameter name="browserName" value="firefox"></parameter>
+        <classes>
+            <class name="com.bridgelabz.tpcindia.test.TPCIndiaTest">
+                <methods>
+                    <include name="whenTryToTrackWithoutNumber_DisplayAlert_ShouldBeHandle"/>
+                    <include name="whenClickLoginButton_DisplayAlter_ShouldBeHandled"/>
+                    <include name="whenNavigateToBack_DisplayAlter_ShouldBeHandled"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
