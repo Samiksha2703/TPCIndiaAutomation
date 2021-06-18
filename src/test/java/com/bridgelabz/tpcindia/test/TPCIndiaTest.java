@@ -8,46 +8,52 @@ package com.bridgelabz.tpcindia.test;
 
 import com.bridgelabz.tpcindia.base.Base;
 import com.bridgelabz.tpcindia.pages.Home;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import com.bridgelabz.tpcindia.utility.TestNgListener;
+import com.bridgelabz.tpcindia.utility.Utility;
+import com.relevantcodes.extentreports.LogStatus;
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
+@Listeners(TestNgListener.class)
 public class TPCIndiaTest extends Base {
     Home home;
-    static ExtentTest test;
-    static ExtentReports report;
-
-    //method to run before class to generate extent report
-    @BeforeClass
-    public static void startTest() {
-        report = new ExtentReports("C:\\Users\\kalam\\IdeaProjects\\TPCIndiaAutomationProject\\src\\main\\resources\\ExtentReport\\" + "ExtentReportResults.html");
-        test = report.startTest("Bookswagon Extent Report");
-    }
 
     @Test(priority = 1)
-    public void whenTryToTrackWithoutNumber_DisplayAlert_ShouldBeHandle() throws InterruptedException {
+    public void whenTryToTrackWithoutNumber_DisplayAlert_ShouldBeHandle() throws InterruptedException, IOException {
         home = new Home(webdriver);
-        home.displayTrackingDetails(webdriver);
+        Boolean check = home.displayTrackingDetails(webdriver);
+        if (check) {
+            test.log(LogStatus.PASS, test.addScreenCapture(Utility.screenshot("TrackShipment")));
+        } else {
+            test.log(LogStatus.FAIL, test.addScreenCapture(Utility.screenshot("TrackShipment")));
+        }
+        Assert.assertTrue(check);
     }
 
     @Test(priority = 2)
-    public void whenClickLoginButton_DisplayAlter_ShouldBeHandled(){
+    public void whenClickLoginButton_DisplayAlter_ShouldBeHandled() throws IOException {
         home = new Home(webdriver);
-        home.loginIntoAccount(webdriver);
+        Boolean check = home.loginIntoAccount(webdriver);
+        if (check) {
+            test.log(LogStatus.PASS, test.addScreenCapture(Utility.screenshot("Login")));
+        } else {
+            test.log(LogStatus.FAIL, test.addScreenCapture(Utility.screenshot("Login")));
+        }
+        Assert.assertTrue(check);
     }
 
     @Test(priority = 3)
-    public void whenNavigateToBack_DisplayAlter_ShouldBeHandled(){
+    public void whenNavigateToBack_ShouldBeHandled() throws IOException {
         home = new Home(webdriver);
-        home.navigateToPreviousPage(webdriver);
-    }
-
-    //method to run after class to generate extent report
-    @AfterClass
-    public static void endTest() {
-        report.endTest(test);
-        report.flush();
+        Boolean check = home.navigateToPreviousPage(webdriver);
+        if (check) {
+            test.log(LogStatus.PASS, test.addScreenCapture(Utility.screenshot("Navigate")));
+        } else {
+            test.log(LogStatus.FAIL, test.addScreenCapture(Utility.screenshot("Navigate")));
+        }
+        Assert.assertTrue(check);
     }
 }

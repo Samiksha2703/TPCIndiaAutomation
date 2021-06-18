@@ -37,22 +37,40 @@ public class Home {
         PageFactory.initElements(driver, this);
     }
 
-    public void displayTrackingDetails(WebDriver driver) throws InterruptedException {
+    public Boolean displayTrackingDetails(WebDriver driver) throws InterruptedException {
+        try {
             searchButton.click();
             Thread.sleep(300);
             driver.switchTo().alert().accept();
             trackingNumberBox.sendKeys("454654654545");
             searchButton.click();
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void loginIntoAccount(WebDriver driver) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click()", loginButton);
-        signInButton.click();
-        driver.switchTo().alert().accept();
+    public Boolean loginIntoAccount(WebDriver driver) {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click()", loginButton);
+            signInButton.click();
+            driver.switchTo().alert().accept();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void navigateToPreviousPage(WebDriver driver){
-        driver.navigate().back();
+    public Boolean navigateToPreviousPage(WebDriver driver) {
+        try {
+            driver.navigate().back();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
